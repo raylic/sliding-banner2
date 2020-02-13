@@ -1,0 +1,45 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+#banner {
+	position: relative;
+	width: 720px;
+	height: 320px;
+	overflow: hidden;
+	margin: 20px auto;
+}
+#imgbox {
+	position: absolute;
+	z-index: 0;
+	width: 3600px;
+	height: 320px;
+}
+img {
+	width: 720px;
+	height: 320px;
+	float: left;
+}
+.light {
+	width: 20px;
+	height: 20px;
+	background-color: lightblue;
+}
+#btnbox {
+	position: absolute;
+	z-index: 2;
+	top: 250px;
+	left: 550px;
+}
+button {
+	border: solid 1px #ffffff;
+	border-radius: 100%;
+	margin: 0 4px;
+	width: 15px;
+	height: 15px;
+	/*去掉蓝色边框线*/
+	outline: none;
+}
+button:hover {
+	background-color: lightblue;
+}
