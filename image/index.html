@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>day28 邮箱输入框</title>
+	<style>
+		* {
+			box-sizing: border-box;
+			padding: 0;
+			margin: 0;
+		}
+		.wrapper {
+			display: block;
+			width: 200px;
+			position: relative;
+			margin: 0 auto;
+
+		}
+		input {
+			width: 200px;
+			height: 25px;
+		}
+		}
+		ul {
+			width: 200px;
+		}
+		li {
+			width: 200px;
+			height: 25px;
+			border: solid 1px #aaaaaa;
+			list-style: none;
+		}
+	</style>
+</head>
+<body>
+	<div class="wrapper">
+		<input type="text" id="email-Input">
+		<ul id="email-Sug"></ul>
+	</div>
+	<script>
+		var postfixList = ['163.com', '126.com', 'gmail.com', 'qq.com', '263.net'];
+		document.getElementById("email-Input").addEventListener("keyup",function() {
+			var string = readInput("email-Input");
+			giveSug(readName(string),readFront(string));
+		});
+
+		function readInput(id) {
+			var mail = document.getElementById(id);
+			var string = mail.value;
+			//去除空格
+			return string.trim();
+		}
+		function readName(string) {
+			//去除"@"符号和之后的内容
+			if(string.indexOf("@") != -1)//如果存在"@"
+				string = string.substring(0,string.indexOf("@"));
+			return string;
+		}
+		function readFront(string) {
+			//只要"@"符号之后的内容
+			if(string.indexOf("@") != -1) {//如果存在"@"
+				string = string.substring(string.indexOf("@") + 1,string.length);
+				return string;
+			}
+			else return "";
+		}
+		function giveSug(name,mailFront) {
+			var sugs = document.getElementById("email-Sug");
+			var nodes = document.querySelectorAll("#email-Sug > *");
+			//清除原有的
+			for(var i = 0; i < nodes.length; i++){
+				 	sugs.removeChild(nodes[i]);
+			 }
+			if(name.length != 0) {
+				//添加新的
+				for(var i = 0; i < postfixList.length; i++) {
+					if( postfixList[i].indexOf(mailFront) == 0 ){//前缀相同
+						var sug = document.createElement("li");
+						sug.innerHTML = name + "@" + postfixList[i];
+						sugs.appendChild(sug);
+					}
+				}
+				if(mailFront.length != 0 && sugs.childNodes.length == 0) {//此时没有一个前缀匹配，添加所有
+					for(var i = 0; i < postfixList.length; i++) {
+						var sug = document.createElement("li");
+						sug.innerHTML = name + "@" + postfixList[i];
+						sugs.appendChild(sug);
+					}
+				}
+			}
+		}
+	</script>
+</body>
+</html>
